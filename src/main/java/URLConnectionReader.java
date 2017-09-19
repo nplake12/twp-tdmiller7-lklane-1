@@ -6,6 +6,8 @@ public class URLConnectionReader {
 
     //TODO Change two parameters to one
     public void searchWikipediaTitle(String searchTitle, String revisionAmount) throws Exception {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("src/test/resources/sample.json"));
+        writer.write("");
 
         searchTitle = encode(searchTitle, "UTF-8");
         URL url = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" + searchTitle + "&rvprop=timestamp|user&rvlimit=" + revisionAmount + "&redirects");
@@ -15,7 +17,6 @@ public class URLConnectionReader {
         InputStream inputJson = connection.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
-        BufferedWriter writer = new BufferedWriter(new FileWriter("src/test/resources/sample.json"));
 
         while ((inputLine = reader.readLine()) != null)
             writer.write(inputLine);
