@@ -4,6 +4,11 @@ import static java.net.URLEncoder.encode;
 
 public class URLConnectionReader {
 
+    public void clearJsonFile() throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("src/test/resources/sample.json"));
+        writer.write("");
+    }
+
     //TODO Change two parameters to one
     public void searchWikipediaTitle(String searchTitle, String revisionAmount) throws Exception {
         BufferedWriter writer = new BufferedWriter(new FileWriter("src/test/resources/sample.json"));

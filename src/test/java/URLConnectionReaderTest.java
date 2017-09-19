@@ -14,22 +14,16 @@ public class URLConnectionReaderTest {
     //Needs Assert
     @Test
     public void testURLNotNull() throws Exception {
-        URLConnectionReader reader = new URLConnectionReader();
-        reader.searchWikipediaTitle("Soup", "4");
         Parser jsonObject = new Parser();
-        jsonObject.parseJsonFile();
+        jsonObject.parseJsonFile("Soup", 4);
         boolean result = jsonObject.isEmpty();
-        //Assert.assertEquals(false, result);
+        Assert.assertEquals(false, result);
     }
-
-
 
     @Test
     public void testURLNull() throws Exception {
-        URLConnectionReader reader = new URLConnectionReader();
-        reader.searchWikipediaTitle("", "4");
         Parser jsonObject = new Parser();
-        jsonObject.parseJsonFile();
+        jsonObject.parseJsonFile("", 4);
         boolean result = jsonObject.isEmpty();
         Assert.assertEquals(true, result);
     }
