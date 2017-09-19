@@ -4,6 +4,7 @@ import static java.net.URLEncoder.encode;
 
 public class URLConnectionReader {
 
+    //TODO Change two parameters to one
     public void searchWikipediaTitle(String searchTitle, String revisionAmount) throws Exception {
 
         searchTitle = encode(searchTitle, "UTF-8");
