@@ -13,7 +13,7 @@ public class URLConnectionReaderTest {
 
     //Needs Assert
     @Test
-    public void testURLNotNull() throws Exception {
+    public void testURLNotEmpty() throws Exception {
         Parser jsonObject = new Parser();
         jsonObject.parseJsonFile("Soup", 4);
         boolean result = jsonObject.isEmpty();
@@ -21,7 +21,7 @@ public class URLConnectionReaderTest {
     }
 
     @Test
-    public void testURLNull() throws Exception {
+    public void testURLEmpty() throws Exception {
         Parser jsonObject = new Parser();
         jsonObject.parseJsonFile("", 4);
         boolean result = jsonObject.isEmpty();
