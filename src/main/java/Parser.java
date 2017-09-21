@@ -37,10 +37,20 @@ public class Parser {
                 JsonObject entryObject = entry.getValue().getAsJsonObject();
                 array = entryObject.getAsJsonArray("revisions");
             }
+
+            for (int i = 0; i < array.size(); i++){
+                String user = array.get(i).getAsJsonObject().get("user").getAsString();
+                String timestamp = array.get(i).getAsJsonObject().get("timestamp").getAsString();
+                System.out.println(user);
+            }
+
+
+
         }catch(Exception e){
 
         }
     }
+
 
     public boolean isConnected(){
         if(inputStream == null){
