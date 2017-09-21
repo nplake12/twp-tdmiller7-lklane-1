@@ -11,9 +11,8 @@ import java.util.Map;
 
 public class URLConnectionReaderTest {
 
-    //Needs Assert
     @Test
-    public void testURLNotEmpty() throws Exception {
+    public void testURLSoup() throws Exception {
         Parser jsonObject = new Parser();
         jsonObject.parseJsonFile("Soup", 4);
         boolean result = jsonObject.isEmpty();
@@ -25,6 +24,22 @@ public class URLConnectionReaderTest {
         Parser jsonObject = new Parser();
         jsonObject.parseJsonFile("", 4);
         boolean result = jsonObject.isEmpty();
+        Assert.assertEquals(true, result);
+    }
+
+    @Test
+    public void testURLInvalidText() throws Exception {
+        Parser jsonObject = new Parser();
+        jsonObject.parseJsonFile("SLKDJFF", 4);
+        boolean result = jsonObject.isEmpty();
+        Assert.assertEquals(true, result);
+    }
+
+    @Test
+    public void testNetworkConnection() throws Exception {
+        Parser jsonObject = new Parser();
+        jsonObject.parseJsonFile("Soup", 4);
+        boolean result = jsonObject.isConnected();
         Assert.assertEquals(true, result);
     }
 }
