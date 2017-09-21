@@ -15,37 +15,36 @@ public class Parser {
 
     JsonArray array = null;
     InputStream inputStream;
-
+    public PageOfRevisions pageOfRevision;
 
     public void parseJsonFile(String searchTitle, int revisionAmount) throws IOException {
-
         searchTitle = encode(searchTitle, "UTF-8");
         URL url = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" + searchTitle + "&rvprop=timestamp|user&rvlimit=" + revisionAmount + "&redirects");
         URLConnection connection = url.openConnection();
-
         connection.setRequestProperty("User-Agent", "Revision Tracker/0.1 (http://www.cs.bsu.edu/~pvg/courses/cs222Fa17; me@bsu.edu)");
-
         com.google.gson.JsonParser parser = new com.google.gson.JsonParser();
 
         inputStream = connection.getInputStream();
         Reader reader = new InputStreamReader(inputStream);
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
+        String pageName = null;
         try {
             JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
             for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
                 JsonObject entryObject = entry.getValue().getAsJsonObject();
                 array = entryObject.getAsJsonArray("revisions");
+                pageName = entryObject.get("title").getAsString();
             }
+
+            PageOfRevisions pageOfRevision = new PageOfRevisions(pageName);
 
             for (int i = 0; i < array.size(); i++){
                 String user = array.get(i).getAsJsonObject().get("user").getAsString();
                 String timestamp = array.get(i).getAsJsonObject().get("timestamp").getAsString();
-                System.out.println(user);
+                Revision revision = new Revision(user, timestamp);
+                pageOfRevision.addRevision(revision);
             }
-
-
-
         }catch(Exception e){
 
         }

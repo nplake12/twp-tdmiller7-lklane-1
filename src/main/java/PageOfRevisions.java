@@ -5,11 +5,10 @@ import java.util.ArrayList;
 public class PageOfRevisions {
 
     public ArrayList<Revision> revisionList = new ArrayList();
+    public String name;
 
-    public void createRevisionList(JsonArray array){
-        for(int i = 0; i < array.size(); i++){
-            //addRevision(i);
-        }
+    public PageOfRevisions(String name){
+        this.name = name;
     }
 
     public void addRevision(Revision revision){
