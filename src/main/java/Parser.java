@@ -3,10 +3,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import javax.xml.crypto.dsig.keyinfo.PGPData;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Map;
 
 import static java.net.URLEncoder.encode;
@@ -17,7 +19,7 @@ public class Parser {
     InputStream inputStream;
     public PageOfRevisions pageOfRevision;
 
-    public void parseJsonFile(String searchTitle, int revisionAmount) throws IOException {
+    public PageOfRevisions parseJsonFile(String searchTitle, int revisionAmount) throws IOException {
         searchTitle = encode(searchTitle, "UTF-8");
         URL url = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" + searchTitle + "&rvprop=timestamp|user&rvlimit=" + revisionAmount + "&redirects");
         URLConnection connection = url.openConnection();
@@ -38,15 +40,23 @@ public class Parser {
             }
 
             PageOfRevisions pageOfRevision = new PageOfRevisions(pageName);
+            ArrayList<User> usernameList = new ArrayList<>();
 
             for (int i = 0; i < array.size(); i++){
-                String user = array.get(i).getAsJsonObject().get("user").getAsString();
-                String timestamp = array.get(i).getAsJsonObject().get("timestamp").getAsString();
-                Revision revision = new Revision(user, timestamp);
-                pageOfRevision.addRevision(revision);
-            }
-        }catch(Exception e){
+                String username = array.get(i).getAsJsonObject().get("user").getAsString();
+                User user = new User(username);
+                usernameList.add(user);
 
+                String timestamp = array.get(i).getAsJsonObject().get("timestamp").getAsString();
+                Revision revision = new Revision(timestamp);
+
+                user.addRevision(revision);
+            }
+
+            pageOfRevision.searchSameUser(usernameList);
+            return pageOfRevision;
+        }catch(Exception e){
+            return pageOfRevision;
         }
     }
 

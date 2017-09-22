@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -5,8 +6,14 @@ import java.io.IOException;
 public class RevisionTest {
 
     @Test
-    public void firstUserKorveto() throws IOException {
+    public void testNotUTCTime() throws IOException {
         Parser parser = new Parser();
-        parser.parseJsonFile("Soup", 4);
+        PageOfRevisions pageOfRevision = parser.parseJsonFile("Soup", 4);
+        Assert.assertNotEquals(pageOfRevision.getUserList()
+                .get(0)
+                .getRevisions()
+                .get(0).getUtcTime(), pageOfRevision.getUserList()
+                .get(0).getRevisions()
+                .get(0).getTimestamp());
     }
 }

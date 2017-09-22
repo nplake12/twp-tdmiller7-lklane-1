@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Map;
 
 public class URLConnectionReaderTest {
@@ -17,6 +19,12 @@ public class URLConnectionReaderTest {
         jsonObject.parseJsonFile("Soup", 4);
         boolean result = jsonObject.isEmpty();
         Assert.assertEquals(false, result);
+    }
+
+    @Test
+    public void testTimezoneIsGreenwichMeanTime() throws ParseException {
+        final Calendar calendar = javax.xml.bind.DatatypeConverter.parseDateTime("2010-04-05T17:16:00Z");
+        Assert.assertEquals("gotten timezone", "GMT+00:00", calendar.getTimeZone().getID());
     }
 
     @Test
