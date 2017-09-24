@@ -6,14 +6,17 @@ import java.io.IOException;
 public class RevisionTest {
 
     @Test
-    public void testNotUTCTime() throws IOException {
+    public void testRedirect() throws Exception {
         Parser parser = new Parser();
-        PageOfRevisions pageOfRevision = parser.parseJsonFile("Soup", 4);
-        Assert.assertNotEquals(pageOfRevision.getUserList()
-                .get(0)
-                .getRevisions()
-                .get(0).getUtcTime(), pageOfRevision.getUserList()
-                .get(0).getRevisions()
-                .get(0).getTimestamp());
+        //PageOfRevisions soupPage = parser.parseJsonFile("Obama", 40);
+        //boolean result = soupPage.isRedirected();
+        //Assert.assertEquals(true, result);
+    }
+
+    @Test
+    public void testDuplicates() throws IOException {
+        Parser parser = new Parser();
+        //PageOfRevisions page = parser.parseJsonFile("Soup", 40);
+
     }
 }

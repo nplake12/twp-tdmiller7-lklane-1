@@ -17,7 +17,6 @@ public class Parser {
 
     JsonArray array = null;
     InputStream inputStream;
-    public PageOfRevisions pageOfRevision;
 
     public PageOfRevisions parseJsonFile(String searchTitle, int revisionAmount) throws IOException {
         searchTitle = encode(searchTitle, "UTF-8");
@@ -31,16 +30,20 @@ public class Parser {
         JsonElement rootElement = parser.parse(reader);
         JsonObject rootObject = rootElement.getAsJsonObject();
         String pageName = null;
+
+
+        ArrayList<User> usernameList = new ArrayList<>();
+
+        PageOfRevisions pageOfRevision = null;
+
         try {
             JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
+            JsonArray redirect = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
             for (Map.Entry<String, JsonElement> entry : pages.entrySet()) {
                 JsonObject entryObject = entry.getValue().getAsJsonObject();
                 array = entryObject.getAsJsonArray("revisions");
                 pageName = entryObject.get("title").getAsString();
             }
-
-            PageOfRevisions pageOfRevision = new PageOfRevisions(pageName);
-            ArrayList<User> usernameList = new ArrayList<>();
 
             for (int i = 0; i < array.size(); i++){
                 String username = array.get(i).getAsJsonObject().get("user").getAsString();
@@ -54,10 +57,14 @@ public class Parser {
             }
 
             pageOfRevision.searchSameUser(usernameList);
-            return pageOfRevision;
         }catch(Exception e){
-            return pageOfRevision;
+
         }
+
+
+
+        return pageOfRevision;
+
     }
 
 

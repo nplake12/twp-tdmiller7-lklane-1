@@ -1,9 +1,11 @@
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -28,7 +30,8 @@ public class Revision {
         return this.utcTime;
     }
 
-    public ZonedDateTime getTimestamp() {
-        return this.timestamp;
+    public String getTimestamp() {
+        Timestamp date =  new Timestamp(timestamp.toInstant().getEpochSecond() * 1000L);
+        return timestamp.format(DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm"));
     }
 }

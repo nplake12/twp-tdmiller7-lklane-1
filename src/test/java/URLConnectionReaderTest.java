@@ -50,4 +50,13 @@ public class URLConnectionReaderTest {
         boolean result = jsonObject.isConnected();
         Assert.assertEquals(true, result);
     }
+
+
+    @Test
+    public void testNetworkC3onnection() throws Exception {
+        Parser jsonObject = new Parser();
+        jsonObject.parseJsonFile("Soup", 4);
+        boolean result = jsonObject.isConnected();
+        Assert.assertEquals(true, result);
+    }
 }
