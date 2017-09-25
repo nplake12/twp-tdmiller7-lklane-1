@@ -13,12 +13,12 @@ import java.util.Map;
 
 import static java.net.URLEncoder.encode;
 
-public class Parser {
+public class WikipediaPageParser {
 
     JsonArray array = null;
     InputStream inputStream;
 
-    public PageOfRevisions parseJsonFile(String searchTitle, int revisionAmount) throws IOException {
+    public PageOfRevisions parseJsonFile(String searchTitle, String revisionAmount) throws IOException {
         searchTitle = encode(searchTitle, "UTF-8");
         URL url = new URL("https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=" + searchTitle + "&rvprop=timestamp|user&rvlimit=" + revisionAmount + "&redirects");
         URLConnection connection = url.openConnection();
@@ -35,7 +35,6 @@ public class Parser {
         ArrayList<User> usernameList = new ArrayList<>();
 
         PageOfRevisions pageOfRevision = null;
-
         try {
             JsonObject pages = rootObject.getAsJsonObject("query").getAsJsonObject("pages");
             JsonArray redirect = rootObject.getAsJsonObject("query").getAsJsonArray("redirects");
@@ -44,7 +43,9 @@ public class Parser {
                 array = entryObject.getAsJsonArray("revisions");
                 pageName = entryObject.get("title").getAsString();
             }
-
+            PageOfRevisions wikiPage = new PageOfRevisions(pageName, true, false);
+            System.out.println("test");
+            System.out.println(array);
             for (int i = 0; i < array.size(); i++){
                 String username = array.get(i).getAsJsonObject().get("user").getAsString();
                 User user = new User(username);
@@ -52,11 +53,11 @@ public class Parser {
 
                 String timestamp = array.get(i).getAsJsonObject().get("timestamp").getAsString();
                 Revision revision = new Revision(timestamp);
-
+                System.out.println("test");
                 user.addRevision(revision);
             }
 
-            pageOfRevision.searchSameUser(usernameList);
+            //pageOfRevision.searchSameUser(usernameList);
         }catch(Exception e){
 
         }

@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import javax.swing.text.html.parser.Parser;
 import javax.xml.soap.Text;
+import java.io.IOException;
 
 public class Main extends Application {
     @Override
@@ -33,6 +34,14 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("I love this");
+                WikipediaPageParser parser = new WikipediaPageParser();
+                try {
+                    PageOfRevisions wikipediaPage = parser.parseJsonFile(wikiPage.getText(), revisions.getText());
+                    System.out.println(wikipediaPage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
         parent.getChildren().add(button);

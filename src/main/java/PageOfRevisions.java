@@ -24,6 +24,9 @@ public class PageOfRevisions {
     }
 
     public void searchSameUser(ArrayList<User> usernameList){
+        for(int i =0; i < usernameList.size(); i++){
+            usernameList.add(usernameList.get(i));
+        }
         /*HashMultiset<String> revisionCount = HashMultiset.create();
 
         System.out.println(usernameList.size());
