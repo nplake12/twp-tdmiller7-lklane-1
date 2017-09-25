@@ -23,7 +23,6 @@ public class PageOfRevisions {
         this.isNotFound = isNotFound;
     }
 
-
     public void searchSameUser(List<User> usernames){
 
         HashMultiset<String> revisionCount = HashMultiset.create();
@@ -64,7 +63,6 @@ public class PageOfRevisions {
     }
 
     public String isRedirected(){
-        System.out.println(redirectedAfter);
         if(redirectedBefore.equals(redirectedAfter)){
             return redirectedBefore;
         }else{
@@ -74,5 +72,9 @@ public class PageOfRevisions {
 
     public List<User> getUserList() {
         return usernameList;
+    }
+
+    public boolean isPageFound() {
+        return isNotFound;
     }
 }

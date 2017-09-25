@@ -71,7 +71,6 @@ public class WikipediaPageParser {
             redirectedBefore = redirected.get(0).getAsJsonObject().get("from").getAsString();
         }
 
-
         if(array!=null) {
             for (int i = 0; i < array.size(); i++) {
                 String username = array.get(i).getAsJsonObject().get("user").getAsString();
@@ -89,7 +88,6 @@ public class WikipediaPageParser {
 
         return page;
     }
-
 
     public boolean isConnected(){
         if(inputStream == null){

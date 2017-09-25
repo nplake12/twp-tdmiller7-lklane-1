@@ -9,4 +9,11 @@ public class PageOfRevisionsTest {
         PageOfRevisions page = parser.parseJsonFile("soup", "4");
         Assert.assertEquals("soup", page.isRedirected());
     }
+
+    @Test
+    public void testPageNotFound(){
+        WikipediaPageParser parser = new WikipediaPageParser();
+        PageOfRevisions page = parser.parseJsonFile("sdfksajflkasjdfljasldf", "2");
+        Assert.assertEquals(false, page.isPageFound());
+    }
 }

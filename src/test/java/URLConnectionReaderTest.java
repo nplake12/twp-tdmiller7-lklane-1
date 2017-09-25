@@ -21,14 +21,6 @@ public class URLConnectionReaderTest {
     }
 
     @Test
-    public void testURLEmpty() throws Exception {
-        WikipediaPageParser jsonObject = new WikipediaPageParser();
-        jsonObject.parseJsonFile("", "4");
-        boolean result = jsonObject.isEmpty();
-        Assert.assertEquals(true, result);
-    }
-
-    @Test
     public void testURLInvalidText() throws Exception {
         WikipediaPageParser jsonObject = new WikipediaPageParser();
         jsonObject.parseJsonFile("SLKDJFF", "4");

@@ -42,6 +42,7 @@ public class Main extends Application {
         TableView table = new TableView();
         TableColumn usernameCol = new TableColumn("Username");
         TableColumn timeCol = new TableColumn("Timestamp");
+        timeCol.setMinWidth(300);
         table.setEditable(true);
         table.getColumns().addAll(usernameCol,timeCol);
 
@@ -53,12 +54,11 @@ public class Main extends Application {
 
                 urlConnectionCb.setSelected(parser.isConnected());
 
-                pageFoundCb.setSelected(!page.isNotFound);
+                pageFoundCb.setSelected(page.isPageFound());
 
                 redirectLabel.setText(page.isRedirected());
 
                 ObservableList list = FXCollections.observableArrayList(page.getUserList());
-                System.out.println(list);
 
                 usernameCol.setCellValueFactory(
                         new PropertyValueFactory<User,String>("username")
@@ -72,11 +72,7 @@ public class Main extends Application {
 
             }
         });
-        parent.getChildren().add(button);
-        parent.getChildren().add(urlConnectionCb);
-        parent.getChildren().add(pageFoundCb);
-        parent.getChildren().add(redirectLabel);
-        parent.getChildren().add(table);
+        parent.getChildren().addAll(button, urlConnectionCb, pageFoundCb, redirectLabel, table);
         primaryStage.setScene(new Scene(parent));
         primaryStage.show();
     }
