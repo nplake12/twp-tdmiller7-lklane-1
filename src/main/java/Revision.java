@@ -11,7 +11,7 @@ import java.util.TimeZone;
 
 public class Revision {
 
-    public ZonedDateTime timestamp;
+    public String timestamp;
     public String utcTime;
 
     public Revision(String utcTime) {
@@ -19,19 +19,19 @@ public class Revision {
         this.timestamp = timestamp;
     }
 
-    public ZonedDateTime changeTimeZone(String utcTime) {
-        this.utcTime = utcTime;
-        Instant instantTime = Instant.parse(utcTime);
-        ZonedDateTime localTimeStamp = instantTime.atZone(ZoneId.of("UTC-5"));
-        return localTimeStamp;
+    private String changeTimeZone(String utcTime) {
+        Instant timestamp = Instant.parse(utcTime);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        ZonedDateTime estZonedDate = timestamp.atZone(ZoneId.of("America/New_York"));
+        return estZonedDate.format(formatter);
     }
+
 
     public String getUtcTime(){
         return this.utcTime;
     }
 
     public String getTimestamp() {
-        Timestamp date =  new Timestamp(timestamp.toInstant().getEpochSecond() * 1000L);
-        return timestamp.format(DateTimeFormatter.ofPattern("dd/MM/yyyy - hh:mm"));
+        return this.timestamp;
     }
 }

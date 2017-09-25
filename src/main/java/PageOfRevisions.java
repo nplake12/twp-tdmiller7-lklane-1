@@ -1,70 +1,78 @@
 import com.google.common.collect.HashMultiset;
 import com.google.gson.JsonArray;
 import com.sun.javafx.collections.ImmutableObservableList;
+import javafx.collections.ObservableList;
 
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class PageOfRevisions {
 
     public String name;
-    public boolean isRedirected;
+    public String redirectedAfter;
+    public String redirectedBefore;
     public boolean isNotFound;
-    public ArrayList<User> usernameList;
+    public List<User> usernameList = new ArrayList<User>();
 
-    public PageOfRevisions(String name, boolean isRedirected, boolean isNotFound){
-        this.isRedirected = isRedirected;
+    public PageOfRevisions(String name, String redirectAfter, String redirectBefore, boolean isNotFound){
+        this.redirectedAfter = redirectAfter;
+        this.redirectedBefore = redirectBefore;
         this.name = name;
         this.isNotFound = isNotFound;
     }
 
-    public void searchSameUser(ArrayList<User> usernameList){
-        for(int i =0; i < usernameList.size(); i++){
-            usernameList.add(usernameList.get(i));
-        }
-        /*HashMultiset<String> revisionCount = HashMultiset.create();
 
-        System.out.println(usernameList.size());
+    public void searchSameUser(List<User> usernames){
 
-        for(int i = 0; i < usernameList.size(); i++){
-            revisionCount.add(usernameList.get(i).getName());
+        HashMultiset<String> revisionCount = HashMultiset.create();
+
+        for(int i = 0; i < usernames.size(); i++){
+            revisionCount.add(usernames.get(i).getUsername());
         }
 
-        for(int i = 0; i < usernameList.size(); i++) {
-            for (int j = 0; j < usernameList.size(); j++) {
-                int firstCount = revisionCount.count(usernameList.get(i).getName());
-                int secondCount = revisionCount.count(usernameList.get(j).getName());
-                if (secondCount < firstCount) {
-                    User firstUser = usernameList.get(i);
-                    User secondUser = usernameList.get(j);
-                    usernameList.set(i, secondUser);
-                    usernameList.set(j, firstUser);
+        for(int i = 0; i < usernames.size(); i++) {
+            for (int j = 0; j < usernames.size(); j++) {
+                int firstCount = revisionCount.count(usernames.get(i).getUsername());
+                int secondCount = revisionCount.count(usernames.get(j).getUsername());
+                if (secondCount > firstCount) {
+                    User firstUser = usernames.get(i);
+                    User secondUser = usernames.get(j);
+                    usernames.set(i, secondUser);
+                    usernames.set(j, firstUser);
                 } else if (secondCount == firstCount) {
-                    Timestamp firsTimeStamp = Timestamp.valueOf(usernameList.get(i).getRevisions().get(0).getTimestamp());
-                    Timestamp secondTimeStamp = Timestamp.valueOf(usernameList.get(j).getRevisions().get(0).getTimestamp());
-                    if (firsTimeStamp.after(secondTimeStamp)) {
-                        User firstUser = usernameList.get(i);
-                        User secondUser = usernameList.get(j);
-                        usernameList.set(i, secondUser);
-                        usernameList.set(j, firstUser);
+                    if(secondCount > 1) {
+                        Timestamp firsTimeStamp = Timestamp.valueOf(usernames.get(i).getRevisionList().get(0).getTimestamp());
+                        Timestamp secondTimeStamp = Timestamp.valueOf(usernames.get(j).getRevisionList().get(0).getTimestamp());
+                        if (firsTimeStamp.after(secondTimeStamp)) {
+                            User firstUser = usernames.get(i);
+                            User secondUser = usernames.get(j);
+                            usernames.set(i, secondUser);
+                            usernames.set(j, firstUser);
+
+                            firstUser.getRevisionList().add(secondUser.getRevisionList().get(0));
+                            usernames.remove(secondUser);
+                        }
                     }
                 }
             }
         }
-*/
-
+        for(int i = 0; i < usernames.size(); i++){
+            usernameList.add(usernames.get(i));
+        }
     }
 
-    public boolean isRedirected(){
-        return isRedirected;
+    public String isRedirected(){
+        System.out.println(redirectedAfter);
+        if(redirectedBefore.equals(redirectedAfter)){
+            return redirectedBefore;
+        }else{
+            return redirectedBefore + " changed to " + redirectedAfter;
+        }
     }
 
-    public ArrayList<User> getUserList() {
+    public List<User> getUserList() {
         return usernameList;
     }
 }
