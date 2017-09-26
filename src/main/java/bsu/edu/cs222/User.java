@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class User {
 
-    public ArrayList<bsu.edu.cs222.Revision> revisionList = new ArrayList();
+    public ArrayList<Revision> revisionList = new ArrayList<>();
     public String username;
     public String revisions;
 
@@ -25,18 +25,19 @@ public class User {
     }
 
     public String getRevisions(){
-        String string= "";
+        StringBuilder builder = new StringBuilder();
         int count = 0;
-        for(int i = 0; i < revisionList.size(); i++){
+        for(Revision revision : revisionList){
             if(count < 1) {
-                string = string + revisionList.get(i).getTimestamp();
+                builder.append(revision.getTimestamp());
                 count++;
             }else {
-                string = string + ", " +revisionList.get(i).getTimestamp();
+                builder.append(" -- ");
+                builder.append(revision.getTimestamp());
                 count++;
             }
         }
-        return string;
+        return builder.toString();
     }
 
     public String getUsername(){
