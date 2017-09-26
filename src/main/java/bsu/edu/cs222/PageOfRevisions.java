@@ -23,9 +23,8 @@ public class PageOfRevisions {
     public void searchSameUser(List<User> usernames){
 
         HashMultiset<String> revisionCount = HashMultiset.create();
-
-        for(int i = 0; i < usernames.size(); i++){
-            revisionCount.add(usernames.get(i).getUsername());
+        for(User user : usernames){
+            revisionCount.add(user.getUsername());
         }
 
         for(int i = 0; i < usernames.size(); i++) {
@@ -46,7 +45,6 @@ public class PageOfRevisions {
                             User secondUser = usernames.get(j);
                             usernames.set(i, secondUser);
                             usernames.set(j, firstUser);
-
                             firstUser.getRevisionList().add(secondUser.getRevisionList().get(0));
                             usernames.remove(secondUser);
                         }
@@ -54,8 +52,8 @@ public class PageOfRevisions {
                 }
             }
         }
-        for(int i = 0; i < usernames.size(); i++){
-            usernameList.add(usernames.get(i));
+        for(User user: usernames){
+            usernameList.add(user);
         }
     }
 
