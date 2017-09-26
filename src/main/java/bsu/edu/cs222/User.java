@@ -1,10 +1,10 @@
-import com.google.gson.JsonArray;
+package bsu.edu.cs222;
 
 import java.util.ArrayList;
 
 public class User {
 
-    public ArrayList<Revision> revisionList = new ArrayList();
+    public ArrayList<bsu.edu.cs222.Revision> revisionList = new ArrayList();
     public String username;
     public String revisions;
 

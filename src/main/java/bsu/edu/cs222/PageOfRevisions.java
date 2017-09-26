@@ -1,11 +1,8 @@
-import com.google.common.collect.HashMultiset;
-import com.google.gson.JsonArray;
-import com.sun.javafx.collections.ImmutableObservableList;
-import javafx.collections.ObservableList;
+package bsu.edu.cs222;
 
-import java.sql.Time;
+import com.google.common.collect.HashMultiset;
+
 import java.sql.Timestamp;
-import java.time.ZonedDateTime;
 import java.util.*;
 
 public class PageOfRevisions {
@@ -14,7 +11,7 @@ public class PageOfRevisions {
     public String redirectedAfter;
     public String redirectedBefore;
     public boolean isNotFound;
-    public List<User> usernameList = new ArrayList<User>();
+    public List<User> usernameList = new ArrayList<>();
 
     public PageOfRevisions(String name, String redirectAfter, String redirectBefore, boolean isNotFound){
         this.redirectedAfter = redirectAfter;

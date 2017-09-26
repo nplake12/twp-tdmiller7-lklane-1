@@ -1,24 +1,16 @@
+package bsu.edu.cs222;
 
 import javafx.application.Application;
-import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import javax.swing.text.TabableView;
-import javax.swing.text.html.parser.Parser;
-import javax.xml.soap.Text;
-import java.io.IOException;
-import java.util.Observable;
 
 public class Main extends Application {
     @Override

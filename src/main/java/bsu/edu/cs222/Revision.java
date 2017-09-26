@@ -1,3 +1,5 @@
+package bsu.edu.cs222;
+
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;

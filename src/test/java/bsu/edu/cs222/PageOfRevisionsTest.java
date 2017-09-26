@@ -1,3 +1,7 @@
+package bsu.edu.cs222;
+
+import bsu.edu.cs222.PageOfRevisions;
+import bsu.edu.cs222.WikipediaPageParser;
 import org.junit.Assert;
 import org.junit.Test;
 

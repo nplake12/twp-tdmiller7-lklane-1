@@ -1,9 +1,9 @@
+package bsu.edu.cs222;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import javax.xml.crypto.dsig.keyinfo.PGPData;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
